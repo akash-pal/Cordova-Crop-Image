@@ -9,6 +9,34 @@ This cordova project uses two plugins:
 
 2) Cordova Crop Image Plugin -- https://github.com/jeduan/cordova-plugin-crop
 
+
+The Camera plugin is combined with the Crop Image Plugin by putting the Cop Image Plugin Code within the success callback of Camera Plugin Code.
+      
+      /*Camera Plugin Code*/
+      navigator.camera.getPicture(onSuccess, onFail, {
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI
+      });
+
+      function onSuccess(imageData) {
+           console.log(imageData);
+           
+           /*Crop Image Plugin Code*/
+           plugins.crop(function success (data) {
+              console.log(data);
+              var image = document.getElementById('myImage');
+              image.src = data;
+           }, 
+           function fail () {
+
+           }, imageData, {quality:100});
+      }
+
+     function onFail(message) {
+        alert('Failed because: ' + message);
+     }
+
+
 <a href="http://imgur.com/1xPUR9h"><img src="http://i.imgur.com/1xPUR9h.png?1" title="source: imgur.com" /></a>
 <a href="http://imgur.com/PPSln16"><img src="http://i.imgur.com/PPSln16.png?1" title="source: imgur.com" /></a>
 <br>
